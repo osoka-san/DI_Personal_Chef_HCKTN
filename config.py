@@ -3,7 +3,7 @@ import os
 load_dotenv()
 class Config:
     # OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-    OPENAI_API_KEY = "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"
+    OPENAI_API_KEY = "sk-svcacct-7RKvYv2IOwtYu25Z4mYGN8FE1ujsti5jemKuCNa6FVz-6DDyRVhITWpSMKw6g3cMT3BlbkFJla3-v60CWHOwazE_3uWQ69E0CILKAxItZwwjz2Ntn92lZpZPV-5XRoQO-eCp2o4A"
 
     DEFAULT_LANGUAGE = os.getenv("DEFAULT_LANGUAGE", "en")
     MAX_TOKENS = int(os.getenv("MAX_TOKENS", 1000))
