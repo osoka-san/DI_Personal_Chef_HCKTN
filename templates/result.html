@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Recipe Result</title>
+    <link rel="stylesheet" href="static/result.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Recipe Finder</h1>
+    </header>
+    <main>
+      <div class="recipe-container">
+        <h2>Your Recipe</h2>
+        <div class="recipe">{{ recipe|safe }}</div>
+      </div>
+      <a href="{{ url_for('index') }}"><button>Go Back</button></a>
+    </main>
+    <footer>
+      <p>&copy; 2024 Recipe Finder</p>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Recipe Finder</title>
+    <link rel="stylesheet" href="static/style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Recipe Finder</h1>
+    </header>
+    <main>
+      <form action="/get_recipe" method="post">
+        <label for="food_type">Food Type:</label>
+        <input type="text" id="food_type" name="food_type" required />
+        <label for="cuisine">Cuisine:</label>
+        <input type="text" id="cuisine" name="cuisine" required />
+        <label for="allergies">Allergies:</label>
+        <input type="text" id="allergies" name="allergies" />
+        <label for="specific_dish">Specific Dish:</label>
+        <input type="text" id="specific_dish" name="specific_dish" />
+        <label for="language">Language:</label>
+        <input type="text" id="language" name="language" value="English" />
+        <button type="submit">Get Recipe</button>
+      </form>
+    </main>
+    <footer>
+      <p>&copy; 2024 Recipe Finder</p>
+    </footer>
+  </body>
+</html>
