@@ -1,7 +1,11 @@
-import csv
-import os
+from flask import Flask, render_template, request
 import openai
 from config import Config
+import csv
+import os
+from move_to_db import add_to_db_recipe, data_base
+
+app = Flask(__name__)
 
 # Set the API key for OpenAI
 openai.api_key = Config.OPENAI_API_KEY
@@ -23,58 +27,38 @@ def get_recipe(prompt, max_tokens=Config.MAX_TOKENS, temperature=Config.TEMPERAT
         print(f"Error requesting Chat GPT API: {e}")
         return None
 
-CSV_FILE = "preferences.csv"
-
 def save_preferences_to_csv(data):
-    with open(CSV_FILE, mode='a', newline='') as file:
+    with open("preferences.csv", mode='a', newline='') as file:
         writer = csv.writer(file)
         writer.writerow(data)
+    
+    # After saving to CSV, update database
+    add_to_db_recipe("preferences.csv", data_base)
 
-def read_preferences_from_csv():
-    preferences = []
-    if os.path.exists(CSV_FILE):
-        with open(CSV_FILE, mode='r') as file:
-            reader = csv.reader(file)
-            preferences = list(reader)
-    return preferences
+@app.route('/')
+def index():
+    return render_template('index.html')
 
-def process_user_request(food_type, cuisine, allergies, specific_dish, language):
-    # Form the request based on user preferences
-    prompt = f"Give me a step-by-step recipe for {food_type} {specific_dish or 'dish'}" \
-             f" in {cuisine} style, considering the following allergies: {allergies}."
+@app.route('/get_recipe', methods=['POST'])
+def get_recipe_route():
+    food_type = request.form['food_type']
+    cuisine = request.form['cuisine']
+    allergies = request.form['allergies']
+    specific_dish = request.form['specific_dish']
+    language = request.form['language']
+    
+    prompt = f"Give me a step-by-step recipe for {food_type} {specific_dish or 'dish'} in {cuisine} style, considering the following allergies: {allergies}."
 
-    # Add language to the prompt if it's not English
     if language.lower() != "english":
         prompt = f"Please provide the recipe in {language}. " + prompt
 
-    # Get the recipe using the ChatGPT API
     recipe = get_recipe(prompt)
-
+    
     if recipe:
-        # Save the result and preferences to a CSV file
         save_preferences_to_csv([food_type, cuisine, allergies, specific_dish, recipe])
-        print("Recipe successfully acquired and stored.")
-        return recipe
+        return render_template('result.html', recipe=recipe)
     else:
-        print("Failed to get recipe.")
-        return None
+        return "Failed to get recipe.", 500
 
-def main():
-    # Example user data (in a real app this will be provided through a GUI)
-    food_type = "vegetarian"
-    cuisine = "Italian"
-    allergies = "nuts"
-    specific_dish = "lasagna"
-    language = "english"
-
-    # Process the user's request
-    recipe = process_user_request(food_type, cuisine, allergies, specific_dish, language)
-
-    if recipe:
-        print("Here's your yummy recipe. Enjoy!!")
-        print(recipe)
-    else:
-        print("Error while getting recipe.")
-
-if __name__ == "__main__":
-    main()
+if __name__ == '__main__':
+    app.run(debug=True)
