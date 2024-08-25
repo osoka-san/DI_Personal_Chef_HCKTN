@@ -7,13 +7,13 @@ from move_to_db import add_to_db_recipe, data_base
 
 app = Flask(__name__)
 
-# Set the API key for OpenAI
+# set the api key for openai
 openai.api_key = Config.OPENAI_API_KEY
 
 def get_recipe(prompt, max_tokens=Config.MAX_TOKENS, temperature=Config.TEMPERATURE):
     try:
         response = openai.ChatCompletion.create(
-            model="gpt-4-turbo",  # Use GPT-4 model
+            model="gpt-4-turbo",  # we used GPT-4 model :)
             messages=[
                 {"role": "system", "content": "You are a helpful assistant."},
                 {"role": "user", "content": prompt}
@@ -32,7 +32,7 @@ def save_preferences_to_csv(data):
         writer = csv.writer(file)
         writer.writerow(data)
     
-    # After saving to CSV, update database
+    # after saving csv we need to update database
     add_to_db_recipe("preferences.csv", data_base)
 
 @app.route('/')
