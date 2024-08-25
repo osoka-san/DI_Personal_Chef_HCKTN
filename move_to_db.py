@@ -2,12 +2,13 @@ import psycopg2
 import csv
 
 data_base = {
-    'dbname': 'postgres',
+    'dbname': 'hackathon_apcm',
     'user': 'priib',
     'password': 'vbigHwNPR5r2TBumP1x5liRKLooAShQ7',
-    'host': 'dpg-cr53675umphs73e05b10-a',
+    'host': 'dpg-cr53675umphs73e05b10-a.oregon-postgres.render.com',
     'port': '5432'
 }
+
 
 def add_to_db_recipe(csv_file, data_base):
     try:
