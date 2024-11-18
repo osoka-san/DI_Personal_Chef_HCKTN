@@ -6,7 +6,7 @@ load_dotenv()
 
 class Config:
     # OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-    OPENAI_API_KEY = "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"
+    OPENAI_API_KEY = "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"
 
     # Получаем другие параметры с дефолтными значениями
     DEFAULT_LANGUAGE = os.getenv("DEFAULT_LANGUAGE", "en")
