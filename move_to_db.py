@@ -2,10 +2,10 @@ import psycopg2
 import csv
 
 data_base = {
-    'dbname': 'hackathon_apcm',
+    'dbname': 'recipes_aleksander',
     'user': 'priib',
-    'password': 'vbigHwNPR5r2TBumP1x5liRKLooAShQ7',
-    'host': 'dpg-cr53675umphs73e05b10-a.oregon-postgres.render.com',
+    'password': '6MbFMNMkkiIXKRJ1pPSfTUlVuCtizTJm',
+    'host': 'dpg-csto0jggph6c739hnkc0-a.oregon-postgres.render.com',
     'port': '5432'
 }
 
